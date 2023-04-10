@@ -22,7 +22,6 @@ public class LoxodoLogin extends BaseClass {
 		{
 		
 			InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
-//			OutboundPage outbound= new OutboundPage(driver);
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
 			inboundRequest.openInboundRequestPage();
 			inboundRequest.clickOnInboundRequestAdd();
@@ -45,13 +44,14 @@ public class LoxodoLogin extends BaseClass {
 			inboundRequest.saveInboundRequest();
 			inboundRequest.sortByDateCreated();
 			inboundRequest.releaseInboundRequest();
-//			inboundRequest.clickOnZoneSelection();
 			inboundRequest.clickOnZoneSelection();
 			inboundRequest.chooseZone();
 			inboundRequest.generateReceiveTask();
 			ReceiveTask receiveTask= inboundRequest.clickOnStartReceiving();
 			receiveTask.clickOnReceiveTask();
-//			driver.close();
+//			receiveTask.binsAPIResponse();
+			receiveTask.selectLatestReceiveTask();
+			receiveTask.startReceiveTaskProcess();
 		}
 	}
 

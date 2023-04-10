@@ -209,7 +209,7 @@ public class InboundRequestPage extends AbstractComponent {
 
 	public void chooseZone() {
 		Select select = new Select(zoneSelectElement);
-		select.selectByIndex(3);
+		select.selectByIndex(1);
 //		zoneSelectionWindow.get(2).click();
 //		chooseZoneFromDropdown.get(1).click();
 
