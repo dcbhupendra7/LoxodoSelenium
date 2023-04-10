@@ -52,6 +52,12 @@ public class LoxodoLogin extends BaseClass {
 //			receiveTask.binsAPIResponse();
 			receiveTask.selectLatestReceiveTask();
 			receiveTask.startReceiveTaskProcess();
+			receiveTask.sendBinLocation();
+			receiveTask.scanLineItems();
+			receiveTask.addLineItem();
+			receiveTask.confirmScannedLineItems();
+			receiveTask.clickOkOnConfirmationHeaderOkButton();
+			receiveTask.clickOnReceiveTaskDoneButton();
 		}
 	}
 
