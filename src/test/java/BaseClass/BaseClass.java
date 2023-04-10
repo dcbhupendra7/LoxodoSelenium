@@ -51,12 +51,12 @@ public class BaseClass {
 		loginPage.url();
 		return loginPage;
 	}
-	@AfterClass
-	public void closeApplication()
-	{
-		driver.quit();
-		Reporter.log("=====Browser Session End=====", true);
-		
-	}
+//	@AfterClass
+//	public void closeApplication()
+//	{
+//		driver.quit();
+//		Reporter.log("=====Browser Session End=====", true);
+//		
+//	}
 
 }

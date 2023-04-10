@@ -14,23 +14,16 @@ import LoxodoWebsite.PageObject.Inbound.InboundRequestPage;
 import LoxodoWebsite.PageObject.Login.LoginPagePageObject;
 import LoxodoWebsite.PageObject.Outbound.OutboundPage;
 import LoxodoWebsite.PageObject.Outbound.OutboundRequestPage;
+import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
 
 public class LoxodoLogin extends BaseClass {
 	@Test
-	public void inboundRequest() throws IOException {
+	public void inboundRequest() throws IOException, InterruptedException {
 		{
-//		WebDriver driver = new ChromeDriver();
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5000));
-//		LoginPagePageObject login= new LoginPagePageObject(driver);
-//		AbstractComponent abstractcomponent = new AbstractComponent(driver);
-//		abstractcomponent.maximizeWindow();
-//		login.url();
-//			 loginPage = gotoWebsite();
+		
 			InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
-			OutboundPage outbound= new OutboundPage(driver);
-//		InboundPage inbound = new InboundPage(driver);
+//			OutboundPage outbound= new OutboundPage(driver);
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
-//		InboundRequestPage inboundRequest= new InboundRequestPage(driver);
 			inboundRequest.openInboundRequestPage();
 			inboundRequest.clickOnInboundRequestAdd();
 			inboundRequest.sendExtid("inboundExtid-");
@@ -50,8 +43,14 @@ public class LoxodoLogin extends BaseClass {
 			inboundRequest.addItemsOnRequest();
 			inboundRequest.updateQty("100");
 			inboundRequest.saveInboundRequest();
-			OutboundRequestPage outboundPage= outbound.openOutboundPage();
-			outboundPage.clickOnOutboundRequest();
+			inboundRequest.sortByDateCreated();
+			inboundRequest.releaseInboundRequest();
+//			inboundRequest.clickOnZoneSelection();
+			inboundRequest.clickOnZoneSelection();
+			inboundRequest.chooseZone();
+			inboundRequest.generateReceiveTask();
+			ReceiveTask receiveTask= inboundRequest.clickOnStartReceiving();
+			receiveTask.clickOnReceiveTask();
 //			driver.close();
 		}
 	}

@@ -1,14 +1,20 @@
 package LoxodoWebsite.PageObject.Inbound;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import LoxodoWebsite.AbstractComponent.AbstractComponent;
+import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
 
 public class InboundRequestPage extends AbstractComponent {
 	WebDriver driver;
@@ -17,6 +23,8 @@ public class InboundRequestPage extends AbstractComponent {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(500));
+
 	}
 
 	@FindBy(linkText = "Inbound Request")
@@ -60,18 +68,45 @@ public class InboundRequestPage extends AbstractComponent {
 
 	@FindBy(xpath = "(//input[@formcontrolname='name'])")
 	List<WebElement> itemAdd;
-	
-	@FindBy(css="input[formcontrolname='name']")
+
+	@FindBy(css = "input[formcontrolname='name']")
 	WebElement itemField;
 
 	@FindBy(xpath = "(//span[@class='mat-option-text'])[1]")
 	WebElement itemSelectionFromDropdown;
-	
-	@FindBy(css="input[formcontrolname='content']")
+
+	@FindBy(css = "input[formcontrolname='content']")
 	WebElement qtyField;
-	
-	@FindBy(xpath="//button[@type='submit']")
+
+	@FindBy(xpath = "//button[@type='submit']")
 	WebElement saveButton;
+
+	@FindBy(css = "th[name=\"date_created\"]")
+	WebElement dateCreatedElement;
+
+	@FindBy(xpath = "(//mat-icon[text()='exit_to_app'])[1]")
+	WebElement releaseButtonElement;
+
+	@FindBy(xpath = "//select[@formcontrolname='zoneid']")
+	WebElement zoneSelectElement;
+
+	@FindBy(css = ".animatedFast .ng-star-inserted")
+	WebElement zoneSelectionWindow;
+
+	@FindBy(xpath = "//option[@class='ng-star-inserted']")
+	List<WebElement> chooseZoneFromDropdown;
+
+	@FindBy(xpath = "//button[@type='submit']")
+	WebElement generateReceiveTask;
+
+	@FindBy(xpath = "//button[text()='Start Receiving']")
+	WebElement startReceivingButton;
+
+	@FindBy(xpath = "//button[text()=\"Cancel\"]")
+	WebElement cancelReceiveTaskDirectly;
+	
+	@FindBy(xpath="//button[text()='No']")
+	WebElement donotReceiveItemsFromInbound;
 
 	public void openInboundRequestPage() {
 		inboundRequest.click();
@@ -129,6 +164,7 @@ public class InboundRequestPage extends AbstractComponent {
 		}
 
 	}
+
 	public void itemEnter(String itemCode) {
 		itemField.sendKeys(itemCode);
 	}
@@ -136,19 +172,64 @@ public class InboundRequestPage extends AbstractComponent {
 	// add item and select from dropdown
 	public void addItemsOnRequest() {
 		itemSelectionFromDropdown.click();
-		
+
 	}
-	
-	//Update Qty in Qty field
-	
+
+	// Update Qty in Qty field
+
 	public void updateQty(String qty) {
 		qtyField.sendKeys(qty);
 	}
-	
-	public void saveInboundRequest()
-	{
+
+	// save inbound request
+	public void saveInboundRequest() {
 		saveButton.click();
+
 	}
 
-	
+	// sort request by created date
+	public void sortByDateCreated() throws InterruptedException {
+		Thread.sleep(5000);
+//		waitForElementToClick(dateCreatedElement);
+		dateCreatedElement.click();
+//		Actions act =  new Actions(driver);
+//		act.moveToElement(dateCreatedElement).click().perform();
+	}
+
+	// release inbound request
+	public void releaseInboundRequest() {
+		releaseButtonElement.click();
+
+	}
+
+	public void clickOnZoneSelection() throws InterruptedException {
+		zoneSelectElement.click();
+		Thread.sleep(5000);
+	}
+
+	public void chooseZone() {
+		Select select = new Select(zoneSelectElement);
+		select.selectByIndex(3);
+//		zoneSelectionWindow.get(2).click();
+//		chooseZoneFromDropdown.get(1).click();
+
+	}
+
+	public void generateReceiveTask() {
+		generateReceiveTask.click();
+
+	}
+
+	public ReceiveTask clickOnStartReceiving() {
+		donotReceiveItemsFromInbound.click();
+		ReceiveTask receiveTask = new ReceiveTask(driver);
+		return receiveTask;
+		
+	}
+	public void cancelReceiveTaskDirectly() {
+		waitForElementToAppear(cancelReceiveTaskDirectly);
+		cancelReceiveTaskDirectly.click();
+		
+	}
+
 }

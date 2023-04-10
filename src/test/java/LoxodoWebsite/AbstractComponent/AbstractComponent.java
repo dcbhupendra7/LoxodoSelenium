@@ -39,8 +39,12 @@ public class AbstractComponent {
         return today.format(formatter);
     }
 	public void waitForElementToAppear(WebElement webElement) {
-		WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(5000));
 		wait.until(ExpectedConditions.visibilityOf( webElement));
+	}
+	public void waitForElementToClick(WebElement webElement) {
+		WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(500));
+		wait.until(ExpectedConditions.elementToBeClickable(webElement));
 	}
 	
 
