@@ -1,21 +1,15 @@
 package LoxodoWebsite.Loxodo;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import BaseClass.BaseClass;
-import LoxodoWebsite.AbstractComponent.AbstractComponent;
 import LoxodoWebsite.PageObject.Inbound.InboundPage;
 import LoxodoWebsite.PageObject.Inbound.InboundRequestPage;
-import LoxodoWebsite.PageObject.Login.LoginPagePageObject;
-import LoxodoWebsite.PageObject.Outbound.OutboundPage;
-import LoxodoWebsite.PageObject.Outbound.OutboundRequestPage;
 import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
 
 public class LoxodoLogin extends BaseClass {
@@ -72,12 +66,13 @@ public class LoxodoLogin extends BaseClass {
 	}
 
 	@DataProvider
-	public Object[][] getLoginDetails() {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("tenant", "soundcore");
-		map.put("username", "bhupendra@soundcore.com");
-		map.put("password", "bhupendra");
-		return new Object[][] {{ map } };
+	public Object[][] getLoginDetails() throws IOException {
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		map.put("tenant", "soundcore");
+//		map.put("username", "bhupendra@soundcore.com");
+//		map.put("password", "bhupendra");
+		List<HashMap<String, String>>data = getJsonDataToMap(System.getProperty("user.dir")+"//src//test//java//data//LoginDetails.json");
+		return new Object[][] {{ data.get(0) },{data.get(1)} };
 	}
 
 }

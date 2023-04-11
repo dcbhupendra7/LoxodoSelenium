@@ -1,0 +1,12 @@
+[
+	{
+		"tenant": "soundcore",
+		"username": "bhupendra@soundcore.com",
+		"password":"bhupendra",
+	},
+	{
+		"tenant": "soundcore",
+		"username": "q1@soundcore.com",
+		"password":"q1",
+	}
+]

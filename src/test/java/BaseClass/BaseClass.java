@@ -1,10 +1,15 @@
 package BaseClass;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,6 +17,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import LoxodoWebsite.PageObject.Login.LoginPagePageObject;
 
@@ -44,6 +52,19 @@ public class BaseClass {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
 		return driver;
 	}
+	
+	public List<HashMap<String, String>> getJsonDataToMap(String filePath) throws IOException {
+		//read json to string
+		String jsonContent =FileUtils.readFileToString(new File(filePath),StandardCharsets.UTF_8);
+		
+		//String to HashMap jackson databind
+		ObjectMapper mapper = new ObjectMapper();
+		List<HashMap<String, String>> data= mapper.readValue(jsonContent, new TypeReference<List<HashMap<String,String>>>(){
+			
+		});
+		return data;
+	}
+	
 	@BeforeClass(alwaysRun=true)
 	public LoginPagePageObject gotoWebsite() throws IOException {
 		driver = initializeDriver();
