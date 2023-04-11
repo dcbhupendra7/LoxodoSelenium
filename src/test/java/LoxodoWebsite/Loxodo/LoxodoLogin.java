@@ -5,6 +5,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import BaseClass.BaseClass;
@@ -17,11 +18,11 @@ import LoxodoWebsite.PageObject.Outbound.OutboundRequestPage;
 import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
 
 public class LoxodoLogin extends BaseClass {
-	@Test(groups="inbound")
-	public void inboundRequest() throws IOException, InterruptedException {
+	@Test(dataProvider = "getLoginDetails")
+	public void inboundRequest(String tenant, String username, String password) throws IOException, InterruptedException {
 		{
 
-			InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
+			InboundPage inbound = loginPage.loginTOApplication(tenant, username, password);
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
 			inboundRequest.openInboundRequestPage();
 			inboundRequest.clickOnInboundRequestAdd();
@@ -52,8 +53,7 @@ public class LoxodoLogin extends BaseClass {
 
 	}
 
-	// this test method is depend on inboundRequest method
-	@Test(groups="inbound")
+	@Test()
 	public void receiveTaskProcess() throws InterruptedException {
 		InboundPage inbound = new InboundPage(driver);
 		inbound.openInboundPage();
@@ -67,7 +67,14 @@ public class LoxodoLogin extends BaseClass {
 		receiveTask.confirmScannedLineItems();
 		receiveTask.clickOkOnConfirmationHeaderOkButton();
 		receiveTask.clickOnReceiveTaskDoneButton();
-//		driver.close();
+	}
+
+
+
+	@DataProvider
+	public Object[][] getLoginDetails() {
+		return new Object[][] { 
+				{ "soundcore", "q1@soundcore.com", "q1" } };
 	}
 
 }
