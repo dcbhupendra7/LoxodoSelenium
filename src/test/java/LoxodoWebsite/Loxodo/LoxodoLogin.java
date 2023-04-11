@@ -20,7 +20,7 @@ public class LoxodoLogin extends BaseClass {
 	@Test
 	public void inboundRequest() throws IOException, InterruptedException {
 		{
-		
+
 			InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
 			inboundRequest.openInboundRequestPage();
@@ -47,18 +47,27 @@ public class LoxodoLogin extends BaseClass {
 			inboundRequest.clickOnZoneSelection();
 			inboundRequest.chooseZone();
 			inboundRequest.generateReceiveTask();
-			ReceiveTask receiveTask= inboundRequest.clickOnStartReceiving();
-			receiveTask.clickOnReceiveTask();
-//			receiveTask.binsAPIResponse();
-			receiveTask.selectLatestReceiveTask();
-			receiveTask.startReceiveTaskProcess();
-			receiveTask.sendBinLocation();
-			receiveTask.scanLineItems();
-			receiveTask.addLineItem();
-			receiveTask.confirmScannedLineItems();
-			receiveTask.clickOkOnConfirmationHeaderOkButton();
-			receiveTask.clickOnReceiveTaskDoneButton();
+			inboundRequest.clickOnStartReceiving();
 		}
+
+	}
+
+	// this test method is depend on inboundRequest method
+	@Test(dependsOnMethods = { "inboundRequest" })
+	public void receiveTaskProcess() throws InterruptedException {
+		InboundPage inbound = new InboundPage(driver);
+		inbound.openInboundPage();
+		ReceiveTask receiveTask = new ReceiveTask(driver);
+		receiveTask.clickOnReceiveTask();
+		receiveTask.selectLatestReceiveTask();
+		receiveTask.startReceiveTaskProcess();
+		receiveTask.sendBinLocation();
+		receiveTask.scanLineItems();
+		receiveTask.addLineItem();
+		receiveTask.confirmScannedLineItems();
+		receiveTask.clickOkOnConfirmationHeaderOkButton();
+		receiveTask.clickOnReceiveTaskDoneButton();
+//		driver.close();
 	}
 
 }
