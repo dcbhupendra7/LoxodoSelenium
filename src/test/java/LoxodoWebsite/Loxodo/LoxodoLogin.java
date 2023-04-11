@@ -17,7 +17,7 @@ import LoxodoWebsite.PageObject.Outbound.OutboundRequestPage;
 import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
 
 public class LoxodoLogin extends BaseClass {
-	@Test
+	@Test(groups="inbound")
 	public void inboundRequest() throws IOException, InterruptedException {
 		{
 
@@ -53,7 +53,7 @@ public class LoxodoLogin extends BaseClass {
 	}
 
 	// this test method is depend on inboundRequest method
-	@Test(dependsOnMethods = { "inboundRequest" })
+	@Test(groups="inbound")
 	public void receiveTaskProcess() throws InterruptedException {
 		InboundPage inbound = new InboundPage(driver);
 		inbound.openInboundPage();

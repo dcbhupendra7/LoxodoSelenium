@@ -44,7 +44,7 @@ public class BaseClass {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
 		return driver;
 	}
-	@BeforeClass
+	@BeforeClass(alwaysRun=true)
 	public LoginPagePageObject gotoWebsite() throws IOException {
 		driver = initializeDriver();
 		loginPage = new LoginPagePageObject(driver);
