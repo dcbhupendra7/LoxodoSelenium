@@ -2,6 +2,7 @@ package LoxodoWebsite.Loxodo;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,10 +20,11 @@ import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
 
 public class LoxodoLogin extends BaseClass {
 	@Test(dataProvider = "getLoginDetails")
-	public void inboundRequest(String tenant, String username, String password) throws IOException, InterruptedException {
+	public void inboundRequest(HashMap<String, String> input)
+			throws IOException, InterruptedException {
 		{
 
-			InboundPage inbound = loginPage.loginTOApplication(tenant, username, password);
+			InboundPage inbound = loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
 			inboundRequest.openInboundRequestPage();
 			inboundRequest.clickOnInboundRequestAdd();
@@ -53,7 +55,7 @@ public class LoxodoLogin extends BaseClass {
 
 	}
 
-	@Test()
+	@Test(dependsOnMethods = { "inboundRequest" })
 	public void receiveTaskProcess() throws InterruptedException {
 		InboundPage inbound = new InboundPage(driver);
 		inbound.openInboundPage();
@@ -69,12 +71,13 @@ public class LoxodoLogin extends BaseClass {
 		receiveTask.clickOnReceiveTaskDoneButton();
 	}
 
-
-
 	@DataProvider
 	public Object[][] getLoginDetails() {
-		return new Object[][] { 
-				{ "soundcore", "q1@soundcore.com", "q1" } };
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("tenant", "soundcore");
+		map.put("username", "bhupendra@soundcore.com");
+		map.put("password", "bhupendra");
+		return new Object[][] {{ map } };
 	}
 
 }
