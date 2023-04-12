@@ -8,10 +8,5 @@
 		"tenant": "soundcore",
 		"username": "q1@soundcore.com",
 		"password":"q1"
-	},
-	{
-		"tenant": "soundcore",
-		"username": "d1@soundcore.com",
-		"password":"d1"
 	}
 ]
