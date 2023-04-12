@@ -2,11 +2,16 @@
 	{
 		"tenant": "soundcore",
 		"username": "bhupendra@soundcore.com",
-		"password":"bhupendra",
+		"password":"bhupendra"
 	},
 	{
 		"tenant": "soundcore",
 		"username": "q1@soundcore.com",
-		"password":"q1",
+		"password":"q1"
+	},
+	{
+		"tenant": "soundcore",
+		"username": "d1@soundcore.com",
+		"password":"d1"
 	}
 ]

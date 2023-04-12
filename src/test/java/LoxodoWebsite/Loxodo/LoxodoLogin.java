@@ -13,12 +13,16 @@ import LoxodoWebsite.PageObject.Inbound.InboundRequestPage;
 import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
 
 public class LoxodoLogin extends BaseClass {
-	@Test(dataProvider = "getLoginDetails")
-	public void inboundRequest(HashMap<String, String> input)
+	@Test()
+	public void inboundRequest()
+//	public void inboundRequest((HashMap<String, String> input)
+
 			throws IOException, InterruptedException {
 		{
 
-			InboundPage inbound = loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
+			InboundPage inbound = loginPage.loginTOApplication("soundcore","bhupendra@soundcore.com","bhupendra");
+//						InboundPage inbound = loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
+
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
 			inboundRequest.openInboundRequestPage();
 			inboundRequest.clickOnInboundRequestAdd();
@@ -49,7 +53,7 @@ public class LoxodoLogin extends BaseClass {
 
 	}
 
-	@Test(dependsOnMethods = { "inboundRequest" })
+	@Test(dependsOnMethods= {"inboundRequest"})
 	public void receiveTaskProcess() throws InterruptedException {
 		InboundPage inbound = new InboundPage(driver);
 		inbound.openInboundPage();
@@ -65,14 +69,21 @@ public class LoxodoLogin extends BaseClass {
 		receiveTask.clickOnReceiveTaskDoneButton();
 	}
 
+//	@Test(dataProvider = "getLoginDetails")
+//	public void loginWithDifferentData(HashMap<String, String> input) {
+//		loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
+//		driver.quit();
+//	}
 	@DataProvider
 	public Object[][] getLoginDetails() throws IOException {
+
+		List<HashMap<String, String>>data = getJsonDataToMap(System.getProperty("user.dir")+"//src//test//java//data//LoginDetails.json");
+		return new Object[][] {{ data.get(0) },{ data.get(1) } };
+		
 //		HashMap<String, String> map = new HashMap<String, String>();
 //		map.put("tenant", "soundcore");
 //		map.put("username", "bhupendra@soundcore.com");
 //		map.put("password", "bhupendra");
-		List<HashMap<String, String>>data = getJsonDataToMap(System.getProperty("user.dir")+"//src//test//java//data//LoginDetails.json");
-		return new Object[][] {{ data.get(0) },{data.get(1)} };
 	}
 
 }
