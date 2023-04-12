@@ -49,13 +49,18 @@ public class LoxodoLogin extends BaseClass {
 			inboundRequest.chooseZone();
 			inboundRequest.generateReceiveTask();
 			inboundRequest.clickOnStartReceiving();
+			driver.quit();
+			
 		}
 
 	}
 
 	@Test(dependsOnMethods= {"inboundRequest"})
-	public void receiveTaskProcess() throws InterruptedException {
-		InboundPage inbound = new InboundPage(driver);
+	public void receiveTaskProcess() throws InterruptedException, IOException {
+		gotoWebsite();
+		InboundPage inbound = loginPage.loginTOApplication("soundcore","bhupendra@soundcore.com","bhupendra");
+
+//		InboundPage inbound = new InboundPage(driver);
 		inbound.openInboundPage();
 		ReceiveTask receiveTask = new ReceiveTask(driver);
 		receiveTask.clickOnReceiveTask();
@@ -69,11 +74,14 @@ public class LoxodoLogin extends BaseClass {
 		receiveTask.clickOnReceiveTaskDoneButton();
 	}
 
-//	@Test(dataProvider = "getLoginDetails")
-//	public void loginWithDifferentData(HashMap<String, String> input) {
-//		loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
-//		driver.quit();
-//	}
+	@Test(dataProvider = "getLoginDetails")
+	public void loginWithDifferentData(HashMap<String, String> input) throws IOException {
+		gotoWebsite();
+		loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
+		
+		driver.quit();
+	}
+	
 	@DataProvider
 	public Object[][] getLoginDetails() throws IOException {
 
