@@ -3,6 +3,7 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
+      <class name="LoxodoWebsite.Loxodo.LoxodoLoginWithWrongEmail"/>
       <class name="LoxodoWebsite.Loxodo.LoxodoLogin"/>
     </classes>
   </test> <!-- Test -->

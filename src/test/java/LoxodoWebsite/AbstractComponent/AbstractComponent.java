@@ -10,15 +10,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.github.javafaker.Faker;
+
 public class AbstractComponent {
 	WebDriver driver;
-	protected String shippingCompanyNameValue="Seva Development";
-	protected String supplierCompanyNameValue="Navigator Business Solutions";
-	protected String shippingEmailValueValue="sevadevelopment@gmail.com";
-	protected String supplierEmailValue= "navigatorbusinesssolutions@gmail.com";
+
 	protected String[]  regularBatchSerial= {"Regular","Batch","Serial"};
 	protected String binsAPI="https://jsonplaceholder.typicode.com/posts";
-
+	Faker faker = new Faker();
+	protected String companyName=faker.company().name();
+	protected String email= faker.internet().emailAddress();
 
 	public AbstractComponent(WebDriver driver) {
 		this.driver = driver;
@@ -44,9 +45,11 @@ public class AbstractComponent {
 		wait.until(ExpectedConditions.visibilityOf( webElement));
 	}
 	public void waitForElementToClick(WebElement webElement) {
-		WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(500));
+		WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(6000));
 		wait.until(ExpectedConditions.elementToBeClickable(webElement));
 	}
+	
+	
 	
 //	public void getAllReceivingBins() throws IOException {
 //		URL binsUrl = new URL(binsAPI);

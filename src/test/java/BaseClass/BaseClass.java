@@ -30,10 +30,9 @@ public class BaseClass {
 //	@BeforeClass
 	public WebDriver initializeDriver() throws IOException {
 //		Properties prop = new Properties();
-//		FileInputStream stream = new FileInputStream(
-//				System.getProperty("user.dir") + "//Loxodo//src//test//java//Resources//GlobalData.properties");
-//		FileInputStream stream = new FileInputStream("C:\\Users\\bhupe\\OneDrive\\Desktop\\Loxodo\\src\\test\\java\\Resources\\GlobalData.properties");
-//		prop.load(stream);
+//		FileInputStream file = new FileInputStream(
+//				System.getProperty("user.dir") + "//src//test//java//Resources//GlobalData.properties");
+//		prop.load(file);
 //		String browserName = prop.getProperty("browser");
 
 		String browserName="chrome";
@@ -52,20 +51,21 @@ public class BaseClass {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
 		return driver;
 	}
-	
+
 	public List<HashMap<String, String>> getJsonDataToMap(String filePath) throws IOException {
-		//read json to string
-		String jsonContent =FileUtils.readFileToString(new File(filePath),StandardCharsets.UTF_8);
-		
-		//String to HashMap jackson databind
+		// read json to string
+		String jsonContent = FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
+
+		// String to HashMap jackson databind
 		ObjectMapper mapper = new ObjectMapper();
-		List<HashMap<String, String>> data= mapper.readValue(jsonContent, new TypeReference<List<HashMap<String,String>>>(){
-			
-		});
+		List<HashMap<String, String>> data = mapper.readValue(jsonContent,
+				new TypeReference<List<HashMap<String, String>>>() {
+
+				});
 		return data;
 	}
-	
-	@BeforeClass(alwaysRun=true)
+
+	@BeforeClass(alwaysRun = true)
 	public LoginPagePageObject gotoWebsite() throws IOException {
 		driver = initializeDriver();
 		loginPage = new LoginPagePageObject(driver);

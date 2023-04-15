@@ -141,20 +141,20 @@ public class InboundRequestPage extends AbstractComponent {
 	}
 
 	public void getShippingCompanyName() {
-		shippingCompanyName.sendKeys(shippingCompanyNameValue);
+		shippingCompanyName.sendKeys(companyName);
 	}
 
 	public void getSupplierCompanyName() {
-		supplierCompanyName.sendKeys(supplierCompanyNameValue);
+		supplierCompanyName.sendKeys(companyName);
 	}
 
 	public void getShippingEmail() {
-		shippingEmail.sendKeys(shippingEmailValueValue);
+		shippingEmail.sendKeys(email);
 	}
 
 	// to add the supplier email
 	public void getSupplierEmail() {
-		supplierEmail.sendKeys(supplierEmailValue);
+		supplierEmail.sendKeys(email);
 	}
 
 	// click on add button to add empty line
@@ -190,10 +190,8 @@ public class InboundRequestPage extends AbstractComponent {
 	// sort request by created date
 	public void sortByDateCreated() throws InterruptedException {
 		Thread.sleep(5000);
-//		waitForElementToClick(dateCreatedElement);
 		dateCreatedElement.click();
-//		Actions act =  new Actions(driver);
-//		act.moveToElement(dateCreatedElement).click().perform();
+
 	}
 
 	// release inbound request
@@ -210,9 +208,6 @@ public class InboundRequestPage extends AbstractComponent {
 	public void chooseZone() {
 		Select select = new Select(zoneSelectElement);
 		select.selectByIndex(1);
-//		zoneSelectionWindow.get(2).click();
-//		chooseZoneFromDropdown.get(1).click();
-
 	}
 
 	public void generateReceiveTask() {
