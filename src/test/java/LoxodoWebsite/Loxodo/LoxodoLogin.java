@@ -21,7 +21,6 @@ public class LoxodoLogin extends BaseClass {
 		{
 
 			InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
-//						InboundPage inbound = loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
 
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
 			inboundRequest.openInboundRequestPage();
@@ -84,15 +83,6 @@ public class LoxodoLogin extends BaseClass {
 		driver.quit();
 	}
 
-//	//to take screenshot
-//	public String getScreenShot(String testCaseName) throws IOException {
-//		TakesScreenshot screenshot=(TakesScreenshot)driver;
-//		File source= screenshot.getScreenshotAs(OutputType.FILE);
-//		File file= new File(System.getProperty("user.dir")+"//reports//"+testCaseName+".png");
-//		FileUtils.copyFile(source, file);
-//		return System.getProperty("user.dir")+"//reports//"+testCaseName+".png";
-//	}
-//	
 	@DataProvider
 	public Object[][] getLoginDetails() throws IOException {
 
