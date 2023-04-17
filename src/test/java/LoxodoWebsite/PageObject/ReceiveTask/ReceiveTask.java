@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import LoxodoWebsite.AbstractComponent.AbstractComponent;
 
@@ -49,6 +50,9 @@ public class ReceiveTask extends AbstractComponent {
 	
 	@FindBy(xpath="//*[text()=' DONE']")
 	WebElement receiveTaskDoneButton;
+	
+	@FindBy(xpath="//div[text()='Task Updated Successfully.']")
+	WebElement receiveTaskComplete;
 
 	public void clickOnReceiveTask() {
 		receiveTaskElement.click();
@@ -82,8 +86,9 @@ public class ReceiveTask extends AbstractComponent {
 		confirmButtonToReceiveItem.click();
 	}
 	public void clickOkOnConfirmationHeaderOkButton() throws InterruptedException {
-		Thread.sleep(5000);
-//		waitForElementToClick(confirmationHeaderOkButton);
+//		Thread.sleep(5000);
+		
+		waitForElementToClick(confirmationHeaderOkButton);
 //		waitForElementToAppear(confirmationHeaderOkButton);
 		confirmationHeaderOkButton.click();
 	}
@@ -92,4 +97,11 @@ public class ReceiveTask extends AbstractComponent {
 //		waitForElementToClick(receiveTaskDoneButton);
 		receiveTaskDoneButton.click();
 	}
+	
+	public void receiveTaskComplete() {
+		waitForElementToAppear(receiveTaskComplete);
+		Assert.assertEquals(receiveTaskComplete.getText(), "Task Updated Successfully.");
+		
+		
+		}
 }

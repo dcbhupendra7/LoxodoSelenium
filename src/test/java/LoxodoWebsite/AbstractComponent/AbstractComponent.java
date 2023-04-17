@@ -47,7 +47,14 @@ public class AbstractComponent {
 	public void waitForElementToClick(WebElement webElement) {
 		WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(6000));
 		wait.until(ExpectedConditions.elementToBeClickable(webElement));
+		
 	}
+//	public void waitForElementToBeEnabled(WebElement webElement) {
+//		WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(6000));
+//		 wait.until(new ElementToBeEnabled(webElement));
+//		
+//	}
+	
 	
 	
 	
