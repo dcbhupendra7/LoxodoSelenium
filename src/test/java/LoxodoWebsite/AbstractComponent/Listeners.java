@@ -17,9 +17,13 @@ import Resources.ExtentReportObject;
 public class Listeners extends BaseClass implements ITestListener{
 	ExtentTest test;
 	ExtentReports extent= ExtentReportObject.getReportObject();
+	//Thread safe
+	ThreadLocal<ExtentTest> extentTest= new ThreadLocal<ExtentTest>();
 	@Override
 	public void onTestStart(ITestResult result) {
 		test= extent.createTest(result.getMethod().getMethodName());
+		//unique thread id ->test
+		extentTest.set(test);
 		
 	}
 	@Override
@@ -30,7 +34,7 @@ public class Listeners extends BaseClass implements ITestListener{
 	@Override
 	public void onTestFailure(ITestResult result) {
 		//to print error message
-		test.fail(result.getThrowable());
+		extentTest.get().fail(result.getThrowable());
 		
 		try {
 			driver =(WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
@@ -48,7 +52,7 @@ public class Listeners extends BaseClass implements ITestListener{
 				e.printStackTrace();
 			}
 		
-		test.addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
+		extentTest.get().addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
 		
 	}
 	@Override
