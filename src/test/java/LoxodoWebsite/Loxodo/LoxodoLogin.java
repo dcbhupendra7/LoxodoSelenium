@@ -1,13 +1,9 @@
 package LoxodoWebsite.Loxodo;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -24,7 +20,7 @@ public class LoxodoLogin extends BaseClass {
 			throws IOException, InterruptedException {
 		{
 
-			InboundPage inbound = loginPage.loginTOApplication("soundcore","bhupendra@soundcore.com","bhupendra");
+			InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
 //						InboundPage inbound = loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
 
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
@@ -54,15 +50,15 @@ public class LoxodoLogin extends BaseClass {
 			inboundRequest.generateReceiveTask();
 			inboundRequest.clickOnStartReceiving();
 			driver.quit();
-			
+
 		}
 
 	}
 
-	@Test(dependsOnMethods= {"inboundRequest"})
+	@Test(dependsOnMethods = { "inboundRequest" })
 	public void receiveTaskProcess() throws InterruptedException, IOException {
 		gotoWebsite();
-		InboundPage inbound = loginPage.loginTOApplication("soundcore","bhupendra@soundcore.com","bhupendra");
+		InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
 
 //		InboundPage inbound = new InboundPage(driver);
 		inbound.openInboundPage();
@@ -76,6 +72,7 @@ public class LoxodoLogin extends BaseClass {
 		receiveTask.confirmScannedLineItems();
 		receiveTask.clickOkOnConfirmationHeaderOkButton();
 		receiveTask.clickOnReceiveTaskDoneButton();
+		receiveTask.receiveTaskComplete();
 		driver.close();
 	}
 
@@ -83,26 +80,26 @@ public class LoxodoLogin extends BaseClass {
 	public void loginWithDifferentData(HashMap<String, String> input) throws IOException {
 		gotoWebsite();
 		loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
-		
+		loginPage.getDashboard();
 		driver.quit();
 	}
-	
-	
-	//to take screenshot
-	public String getScreenShot(String testCaseName) throws IOException {
-		TakesScreenshot screenshot=(TakesScreenshot)driver;
-		File source= screenshot.getScreenshotAs(OutputType.FILE);
-		File file= new File(System.getProperty("user.dir")+"//reports//"+testCaseName+".png");
-		FileUtils.copyFile(source, file);
-		return System.getProperty("user.dir")+"//reports//"+testCaseName+".png";
-	}
-	
+
+//	//to take screenshot
+//	public String getScreenShot(String testCaseName) throws IOException {
+//		TakesScreenshot screenshot=(TakesScreenshot)driver;
+//		File source= screenshot.getScreenshotAs(OutputType.FILE);
+//		File file= new File(System.getProperty("user.dir")+"//reports//"+testCaseName+".png");
+//		FileUtils.copyFile(source, file);
+//		return System.getProperty("user.dir")+"//reports//"+testCaseName+".png";
+//	}
+//	
 	@DataProvider
 	public Object[][] getLoginDetails() throws IOException {
 
-		List<HashMap<String, String>>data = getJsonDataToMap(System.getProperty("user.dir")+"//src//test//java//data//LoginDetails.json");
-		return new Object[][] {{ data.get(0) },{ data.get(1) } };
-		
+		List<HashMap<String, String>> data = getJsonDataToMap(
+				System.getProperty("user.dir") + "//src//test//java//data//LoginDetails.json");
+		return new Object[][] { { data.get(0) }, { data.get(1) } };
+
 //		HashMap<String, String> map = new HashMap<String, String>();
 //		map.put("tenant", "soundcore");
 //		map.put("username", "bhupendra@soundcore.com");

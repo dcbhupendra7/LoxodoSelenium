@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import LoxodoWebsite.AbstractComponent.AbstractComponent;
 import LoxodoWebsite.PageObject.Inbound.InboundPage;
@@ -35,6 +36,9 @@ public class LoginPagePageObject extends AbstractComponent {
 	@FindBy(css=".pl10")
 	WebElement errorMessage;
 	
+	@FindBy(xpath="//span[text()='Dashboard']")
+	WebElement dashboard;
+	
 	public void url() {
 		driver.get("https://loxodo.tech/");
 	}
@@ -51,6 +55,11 @@ public class LoginPagePageObject extends AbstractComponent {
 	public String getErrorMessage() {
 		waitForElementToAppear(errorMessage);
 		return errorMessage.getText();
+	}
+	
+	public void getDashboard() {
+		dashboard.getText();
+		Assert.assertEquals(dashboard.getText(), "Dashboard");
 	}
 	
 }
