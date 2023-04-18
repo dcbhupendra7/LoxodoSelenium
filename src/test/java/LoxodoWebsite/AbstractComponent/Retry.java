@@ -11,7 +11,8 @@ public class Retry implements IRetryAnalyzer{
 	public boolean retry(ITestResult result) {
 		// TODO Auto-generated method stub
 		if(count<maxTry) {
-			
+			count++;
+			return true;
 		}
 		return false;
 	}
