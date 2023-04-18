@@ -86,9 +86,9 @@ public class ReceiveTask extends AbstractComponent {
 		confirmButtonToReceiveItem.click();
 	}
 	public void clickOkOnConfirmationHeaderOkButton() throws InterruptedException {
-//		Thread.sleep(5000);
+		Thread.sleep(5000);
 		
-		waitForElementToClick(confirmationHeaderOkButton);
+//		waitForElementToClick(confirmationHeaderOkButton);
 //		waitForElementToAppear(confirmationHeaderOkButton);
 		confirmationHeaderOkButton.click();
 	}
