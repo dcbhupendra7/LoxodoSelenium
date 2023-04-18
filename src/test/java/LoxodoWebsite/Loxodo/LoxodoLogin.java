@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import BaseClass.BaseClass;
+import LoxodoWebsite.AbstractComponent.Retry;
 import LoxodoWebsite.PageObject.Inbound.InboundPage;
 import LoxodoWebsite.PageObject.Inbound.InboundRequestPage;
 import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
@@ -54,7 +55,7 @@ public class LoxodoLogin extends BaseClass {
 
 	}
 
-	@Test(dependsOnMethods = { "inboundRequest" })
+	@Test(dependsOnMethods = { "inboundRequest" },retryAnalyzer=Retry.class)
 	public void receiveTaskProcess() throws InterruptedException, IOException {
 		gotoWebsite();
 		InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
