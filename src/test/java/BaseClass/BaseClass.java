@@ -31,13 +31,13 @@ public class BaseClass {
 
 //	@BeforeClass
 	public WebDriver initializeDriver() throws IOException {
-//		Properties prop = new Properties();
-//		FileInputStream file = new FileInputStream(
-//				System.getProperty("user.dir") + "//src//test//java//Resources//GlobalData.properties");
-//		prop.load(file);
+		Properties prop = new Properties();
+		FileInputStream file = new FileInputStream(
+				System.getProperty("user.dir") + "//src//test//java//Resources//GlobalData.properties");
+		prop.load(file);
+		String browserName=	System.getProperty("browser")!=null ? System.getProperty("browser"): prop.getProperty("browser");
 //		String browserName = prop.getProperty("browser");
 
-		String browserName = "chrome";
 		// to use chrome driver
 		if (browserName.equalsIgnoreCase("chrome")) {
 //			driver = new ChromeDriver();
