@@ -16,14 +16,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
+
 import org.testng.annotations.BeforeClass;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import LoxodoWebsite.PageObject.Login.LoginPagePageObject;
+
 
 public class BaseClass {
 	public WebDriver driver;

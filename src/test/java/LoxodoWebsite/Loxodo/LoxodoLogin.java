@@ -11,16 +11,18 @@ import BaseClass.BaseClass;
 import LoxodoWebsite.AbstractComponent.Retry;
 import LoxodoWebsite.PageObject.Inbound.InboundPage;
 import LoxodoWebsite.PageObject.Inbound.InboundRequestPage;
+import LoxodoWebsite.PageObject.Login.LoginPagePageObject;
 import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
+
 
 public class LoxodoLogin extends BaseClass {
 	@Test()
 	public void inboundRequest()
 //	public void inboundRequest((HashMap<String, String> input)
 
-			throws IOException, InterruptedException {
-		{
+			throws IOException, InterruptedException {		
 
+		{
 			InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
 
 			InboundRequestPage inboundRequest = inbound.openInboundPage();
@@ -57,6 +59,7 @@ public class LoxodoLogin extends BaseClass {
 
 	@Test(dependsOnMethods = { "inboundRequest" },retryAnalyzer=Retry.class)
 	public void receiveTaskProcess() throws InterruptedException, IOException {
+				
 		gotoWebsite();
 		InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
 
