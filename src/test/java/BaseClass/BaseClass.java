@@ -15,6 +15,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import org.testng.annotations.BeforeClass;
@@ -36,7 +37,6 @@ public class BaseClass {
 				System.getProperty("user.dir") + "//src//test//java//Resources//GlobalData.properties");
 		prop.load(file);
 		String browserName=	System.getProperty("browser")!=null ? System.getProperty("browser"): prop.getProperty("browser");
-//		String browserName = prop.getProperty("browser");
 
 		// to use chrome driver
 		if (browserName.equalsIgnoreCase("chrome")) {
@@ -48,6 +48,10 @@ public class BaseClass {
 //		to use firefox driver
 		else if (browserName.equalsIgnoreCase("firefox")) {
 			driver = new FirefoxDriver();
+		}
+		//to use edge driver
+		else if(browserName.equalsIgnoreCase("edge")){
+			driver = new EdgeDriver();
 		}
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2000));
