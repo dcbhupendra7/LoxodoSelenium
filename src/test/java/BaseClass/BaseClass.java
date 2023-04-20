@@ -18,6 +18,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -39,11 +41,21 @@ public class BaseClass {
 		String browserName=	System.getProperty("browser")!=null ? System.getProperty("browser"): prop.getProperty("browser");
 
 		// to use chrome driver
-		if (browserName.equalsIgnoreCase("chrome")) {
+		if (browserName.contains("chrome")) {
+
 //			driver = new ChromeDriver();
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("--remote-allow-origins=*");
+			//to run in headless mode
+			if(browserName.contains("headless")){
+				chromeOptions.addArguments("headless");
+//				driver = new ChromeDriver(chromeOptions);
+
+			}
+
+
 			driver = new ChromeDriver(chromeOptions);
+			driver.manage().window().maximize();
 		}
 //		to use firefox driver
 		else if (browserName.equalsIgnoreCase("firefox")) {
@@ -87,12 +99,12 @@ public class BaseClass {
 		loginPage.url();
 		return loginPage;
 	}
-//	@AfterClass
-//	public void closeApplication()
-//	{
-//		driver.quit();
-//		Reporter.log("=====Browser Session End=====", true);
-//		
-//	}
+	@AfterMethod
+	public void closeApplication()
+	{
+		driver.quit();
+		Reporter.log("=====Browser Session End=====", true);
+
+	}
 
 }
