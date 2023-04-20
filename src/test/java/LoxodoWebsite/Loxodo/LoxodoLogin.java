@@ -51,7 +51,6 @@ public class LoxodoLogin extends BaseClass {
 			inboundRequest.chooseZone();
 			inboundRequest.generateReceiveTask();
 			inboundRequest.clickOnStartReceiving();
-			driver.quit();
 
 		}
 
@@ -76,15 +75,13 @@ public class LoxodoLogin extends BaseClass {
 		receiveTask.clickOkOnConfirmationHeaderOkButton();
 		receiveTask.clickOnReceiveTaskDoneButton();
 		receiveTask.receiveTaskComplete();
-		driver.close();
 	}
 
 	@Test(dataProvider = "getLoginDetails")
 	public void loginWithDifferentData(HashMap<String, String> input) throws IOException {
 		gotoWebsite();
 		loginPage.loginTOApplication(input.get("tenant"), input.get("username"), input.get("password"));
-		loginPage.getDashboard();
-		driver.quit();
+//		loginPage.getDashboard();
 	}
 
 	@DataProvider
