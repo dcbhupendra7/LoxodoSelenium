@@ -45,6 +45,7 @@ public class LoxodoLogin extends BaseClass {
 			inboundRequest.addItemsOnRequest();
 			inboundRequest.updateQty("100");
 			inboundRequest.saveInboundRequest();
+//			inboundRequest.verifyRequestAddition();
 			inboundRequest.sortByDateCreated();
 			inboundRequest.releaseInboundRequest();
 			inboundRequest.clickOnZoneSelection();

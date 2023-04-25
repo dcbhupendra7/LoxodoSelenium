@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import LoxodoWebsite.AbstractComponent.AbstractComponent;
 import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
+import org.testng.Assert;
 
 public class InboundRequestPage extends AbstractComponent {
 	WebDriver driver;
@@ -81,7 +82,7 @@ public class InboundRequestPage extends AbstractComponent {
 	@FindBy(xpath = "//button[@type='submit']")
 	WebElement saveButton;
 
-	@FindBy(css = "th[name=\"date_created\"]")
+	@FindBy(css = "th[name='date_created']")
 	WebElement dateCreatedElement;
 
 	@FindBy(xpath = "(//mat-icon[text()='exit_to_app'])[1]")
@@ -90,23 +91,20 @@ public class InboundRequestPage extends AbstractComponent {
 	@FindBy(xpath = "//select[@formcontrolname='zoneid']")
 	WebElement zoneSelectElement;
 
-	@FindBy(css = ".animatedFast .ng-star-inserted")
-	WebElement zoneSelectionWindow;
-
-	@FindBy(xpath = "//option[@class='ng-star-inserted']")
-	List<WebElement> chooseZoneFromDropdown;
 
 	@FindBy(xpath = "//button[@type='submit']")
 	WebElement generateReceiveTask;
 
-	@FindBy(xpath = "//button[text()='Start Receiving']")
-	WebElement startReceivingButton;
 
 	@FindBy(xpath = "//button[text()=\"Cancel\"]")
 	WebElement cancelReceiveTaskDirectly;
-	
+
 	@FindBy(xpath="//button[text()='No']")
 	WebElement donotReceiveItemsFromInbound;
+
+	@FindBy(xpath="//div[@role='alertdialog']")
+	WebElement inboundRequestAddedToastMessage;
+
 
 	public void openInboundRequestPage() {
 		inboundRequest.click();
@@ -187,6 +185,12 @@ public class InboundRequestPage extends AbstractComponent {
 
 	}
 
+	public void verifyRequestRelease(String message){
+		waitForElementToAppear(inboundRequestAddedToastMessage);
+		String toastMessage= inboundRequestAddedToastMessage.getText();
+		Assert.assertEquals(toastMessage, message);
+	}
+
 	// sort request by created date
 	public void sortByDateCreated() throws InterruptedException {
 		Thread.sleep(5000);
@@ -219,12 +223,13 @@ public class InboundRequestPage extends AbstractComponent {
 		donotReceiveItemsFromInbound.click();
 		ReceiveTask receiveTask = new ReceiveTask(driver);
 		return receiveTask;
-		
+
 	}
+
 	public void cancelReceiveTaskDirectly() {
 		waitForElementToAppear(cancelReceiveTaskDirectly);
 		cancelReceiveTaskDirectly.click();
-		
+
 	}
 
 }
