@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(features = "src/test/java/cucumber",
         glue = "stepDefinition", monochrome = true,
-        plugin = "html:target/cucumber.html")
+        plugin = "html:target/cucumber.html", tags = "@LoginReceiveTask")
 public class TestNGTestRunner extends AbstractTestNGCucumberTests {
 
 }
