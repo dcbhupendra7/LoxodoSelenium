@@ -20,12 +20,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import LoxodoWebsite.PageObject.Login.LoginPagePageObject;
+import org.testng.annotations.BeforeTest;
 
 
 public class BaseClass {
@@ -92,19 +94,20 @@ public class BaseClass {
 		return System.getProperty("user.dir") + "//reports//" + testCaseName + ".png";
 	}
 
-	@BeforeClass(alwaysRun = true)
+	@BeforeTest(alwaysRun = true)
 	public LoginPagePageObject gotoWebsite() throws IOException {
 		driver = initializeDriver();
 		loginPage = new LoginPagePageObject(driver);
 		loginPage.url();
 		return loginPage;
 	}
-	@AfterMethod
+	@AfterTest
 	public void closeApplication()
 	{
 		driver.quit();
 		Reporter.log("=====Browser Session End=====", true);
 
 	}
+
 
 }

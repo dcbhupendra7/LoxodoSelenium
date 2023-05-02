@@ -98,4 +98,5 @@ public class LoxodoLogin extends BaseClass {
 //		map.put("password", "bhupendra");
 	}
 
+
 }
