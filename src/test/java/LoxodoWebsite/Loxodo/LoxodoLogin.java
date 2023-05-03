@@ -1,6 +1,7 @@
 package LoxodoWebsite.Loxodo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class LoxodoLogin extends BaseClass {
 	public void inboundRequest()
 //	public void inboundRequest((HashMap<String, String> input)
 
-			throws IOException, InterruptedException {		
+			throws IOException, InterruptedException {
 
 		{
 			InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
@@ -59,7 +60,7 @@ public class LoxodoLogin extends BaseClass {
 
 	@Test(dependsOnMethods = { "inboundRequest" },retryAnalyzer=Retry.class)
 	public void receiveTaskProcess() throws InterruptedException, IOException {
-				
+
 		gotoWebsite();
 		InboundPage inbound = loginPage.loginTOApplication("soundcore", "bhupendra@soundcore.com", "bhupendra");
 
@@ -96,6 +97,16 @@ public class LoxodoLogin extends BaseClass {
 //		map.put("tenant", "soundcore");
 //		map.put("username", "bhupendra@soundcore.com");
 //		map.put("password", "bhupendra");
+	}
+
+	@Test
+	public void printDataFromExcelFile() throws IOException {
+		ArrayList alist=getExcelData("Develop");
+		int size= alist.size();
+		for(int i=0;i<size;i++){
+			System.out.println(alist.get(i));
+
+		}
 	}
 
 

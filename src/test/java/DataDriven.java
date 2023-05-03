@@ -4,13 +4,14 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DataDriven {
-    public static void main(String[] args) throws IOException {
+    public ArrayList<String> getExcelData(String environment) throws IOException {
 
+        ArrayList <String> array = new ArrayList<String>();
         FileInputStream file = new FileInputStream("C:\\Users\\bhupe\\Downloads\\data.xlsx");
         //this will get access to the excel file
         XSSFWorkbook myWorkBook = new XSSFWorkbook (file);
@@ -24,24 +25,42 @@ public class DataDriven {
                 Iterator<Row> rows =sheet.iterator();
 
                 //get the first row of the sheet
-               Row firstrow= rows.next();
-               //row is collection of cells
-              Iterator <Cell> cel= firstrow.cellIterator();
-              int k=0;
-              int column = 0;
-              while(cel.hasNext()){
-                  Cell value=cel.next();
-                  if(value.getStringCellValue().equalsIgnoreCase("Environment")){
-                    column =k;
+                Row firstrow= rows.next();
+                //row is collection of cells
+                Iterator <Cell> cel= firstrow.cellIterator();
+                int k=0;
+                int column = 0;
+                while(cel.hasNext()){
+                    Cell value=cel.next();
+                    if(value.getStringCellValue().equalsIgnoreCase("Environment")){
+                        column =k;
 
-                  }
-                  k ++;
+                    }
+                    k ++;
 
-              }
+                }
                 System.out.println(column);
+                while(rows.hasNext()){
+                    Row r=   rows.next();
+                    if(r.getCell(column).getStringCellValue().equalsIgnoreCase(environment)){
+                        Iterator <Cell> cv=r.cellIterator();
+                        while(cv.hasNext()){
+                            Cell cell= cv.next();
+                            String cellValue=cell.getStringCellValue();
+                            array.add(cellValue);
+
+                        }
+
+                    }
+                }
+
             }
 
 
         }
+        return array;
+    }
+    public static void main(String[] args) throws IOException {
+
     }
 }
