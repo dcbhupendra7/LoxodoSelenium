@@ -152,8 +152,8 @@ public class BaseClass {
 							}
 							else{
 
-								double intergerValue=cell.getNumericCellValue();
-								array.add(NumberToTextConverter.toText(intergerValue));
+								double integerValue=cell.getNumericCellValue();
+								array.add(NumberToTextConverter.toText(integerValue));
 							}
 
 						}
