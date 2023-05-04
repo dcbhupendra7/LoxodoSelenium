@@ -5,11 +5,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.NumberToTextConverter;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -109,5 +113,55 @@ public class BaseClass {
 
 	}
 
+	//to get data from excel file
+	public ArrayList<String> getExcelData(String environment) throws IOException {
+		ArrayList <String> array = new ArrayList<String>();
+		FileInputStream file = new FileInputStream("C:\\Users\\bhupe\\Downloads\\data.xlsx");
+		//this will get access to the excel file
+		XSSFWorkbook myWorkBook = new XSSFWorkbook (file);
+		int sheetCount=myWorkBook.getNumberOfSheets();
+		for(int  i=0; i<sheetCount;i++){
+			if(myWorkBook.getSheetName(i).equalsIgnoreCase("LoginCredentials")){
+				XSSFSheet sheet= myWorkBook.getSheetAt(i);
+				//Identify Environment column by scanning entire row
+				//sheet is collection of rows
+				Iterator<Row> rows =sheet.iterator();
+				//get the first row of the sheet
+				Row firstrow= rows.next();
+				//row is collection of cells
+				Iterator <Cell> cel= firstrow.cellIterator();
+				int k=0;
+				int column = 0;
+				while(cel.hasNext()){
+					Cell value=cel.next();
+					if(value.getStringCellValue().equalsIgnoreCase("Environment")){
+						column =k;
+					}
+					k ++;
+				}
+				System.out.println(column);
+				while(rows.hasNext()){
+					Row r=   rows.next();
+					if(r.getCell(column).getStringCellValue().equalsIgnoreCase(environment)){
+						Iterator <Cell> cv=r.cellIterator();
+						while(cv.hasNext()){
+							Cell cell= cv.next();
+							if(cell.getCellTypeEnum() == CellType.STRING){
+								String cellValue=cell.getStringCellValue();
+								array.add(cellValue);
+							}
+							else{
+
+								double integerValue=cell.getNumericCellValue();
+								array.add(NumberToTextConverter.toText(integerValue));
+							}
+
+						}
+					}
+				}
+			}
+		}
+		return array;
+	}
 
 }
