@@ -1,10 +1,16 @@
 package LoxodoWebsite.Loxodo;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.cucumber.java.hu.De;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -14,6 +20,8 @@ import LoxodoWebsite.PageObject.Inbound.InboundPage;
 import LoxodoWebsite.PageObject.Inbound.InboundRequestPage;
 import LoxodoWebsite.PageObject.Login.LoginPagePageObject;
 import LoxodoWebsite.PageObject.ReceiveTask.ReceiveTask;
+
+
 
 
 public class LoxodoLogin extends BaseClass {
@@ -107,6 +115,14 @@ public class LoxodoLogin extends BaseClass {
 			System.out.println(alist.get(i));
 
 		}
+	}
+	@Test
+	public void seleniumGrid() throws MalformedURLException {
+		DesiredCapabilities capabilities= new DesiredCapabilities();
+		capabilities.setBrowserName("chrome");
+		WebDriver driver = new RemoteWebDriver(new URL("http://192.168.1.136:4444"),capabilities);
+		driver.get("https://automationteststore.com/");
+		System.out.println(driver.getTitle());
 	}
 
 
